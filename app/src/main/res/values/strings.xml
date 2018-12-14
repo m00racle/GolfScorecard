@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Golf Scorecard</string>
+    <string name="start_scoring_button_text">Start Scoring</string>
+    <string name="title_activity_scoring">ScoringActivity</string>
+    <string name="hole_number_text">Hole Number:</string>
+    <string name="add_button_label">+</string>
+    <string name="substract_button_label">-</string>
+    <string name="score_label">Score</string>
+    <string name="score_text">00</string>
+    <string name="hole_number">0</string>
+    <string name="clear_score_button">Clear Score</string>
 </resources>
