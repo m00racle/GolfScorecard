@@ -33,10 +33,30 @@ public class HoleAdapter extends RecyclerView.Adapter<HoleAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int index) {
-        Hole hole = holes.get(index);
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int index) {
+        final Hole hole = holes.get(index);
         holder.holeNumberText.setText(String.valueOf(hole.getHoleNumber()));
         holder.scoreText.setText(String.valueOf(hole.getScore()));
+
+        //set Add button action:
+        holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hole.setScore(hole.getScore() + 1);
+                holder.scoreText.setText(String.valueOf(hole.getScore()));
+            }
+        });
+
+        //set subtract button action:
+        holder.buttonSubtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hole.getScore() > 0){
+                    hole.setScore(hole.getScore() - 1);
+                    holder.scoreText.setText(String.valueOf(hole.getScore()));
+                }
+            }
+        });
     }
 
     @Override
