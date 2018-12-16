@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,22 +18,18 @@ import java.util.List;
 
 public class ScoringActivity extends AppCompatActivity {
     private static final String PREFS_FILE = "com.mooracle.golfscorecard.preferences";
-    private Button clearButton;
-    private RecyclerView recyclerScore;
-    private HoleAdapter adapter;
     private Hole[] holes;
     // SET SHARED PREFERENCES
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoring);
-        clearButton = findViewById(R.id.clearButton);
-        recyclerScore = findViewById(R.id.recyclerScore);
+        Button clearButton = findViewById(R.id.clearButton);
+        RecyclerView recyclerScore = findViewById(R.id.recyclerScore);
         sharedPreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+
 
         //initiate the Hole array:
         holes = initiateHoles();
@@ -41,8 +38,13 @@ public class ScoringActivity extends AppCompatActivity {
         List<Hole> holeList = Arrays.asList(holes);
 
         //set adapter
-        adapter = new HoleAdapter(holeList);
+        HoleAdapter adapter = new HoleAdapter(holeList);
         recyclerScore.setAdapter(adapter);
+
+        //optimize recycler view
+        recyclerScore.setHasFixedSize(true);
+        recyclerScore.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
 
         //set layout manager and bind into recyclerScore
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -69,7 +71,7 @@ public class ScoringActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("score1", holes[0].getScore());
         editor.putInt("score2", holes[1].getScore());
         editor.putInt("score3", holes[2].getScore());
