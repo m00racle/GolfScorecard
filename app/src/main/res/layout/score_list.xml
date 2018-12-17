@@ -73,8 +73,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonSubstract"
         app:layout_constraintEnd_toStartOf="@+id/holeNumberText"
+        app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toEndOf="@+id/scoreLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.888" />
 
     <TextView
         android:id="@+id/holeNumberText"
