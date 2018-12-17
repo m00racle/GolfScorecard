@@ -21,6 +21,7 @@ public class ScoringActivity extends AppCompatActivity {
     private Hole[] holes;
     // SET SHARED PREFERENCES
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class ScoringActivity extends AppCompatActivity {
         Button clearButton = findViewById(R.id.clearButton);
         RecyclerView recyclerScore = findViewById(R.id.recyclerScore);
         sharedPreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+
+        //initiating editor
+        editor = sharedPreferences.edit();
 
 
         //initiate the Hole array:
@@ -58,7 +62,11 @@ public class ScoringActivity extends AppCompatActivity {
                     hole.setScore(0);
                 }
 
-                //switch from refresh the whole activity to just notify the adapter:
+                //clear the data inside editor to save memory:
+                editor.clear();
+                editor.apply();
+
+                //switch from refresh the whole activity to just notify the adapter: <- to save memory
                 adapter.notifyDataSetChanged();
             }
         });
@@ -68,7 +76,6 @@ public class ScoringActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // iterate all editor put int:
         for (int i = 0; i < 18; i++){
