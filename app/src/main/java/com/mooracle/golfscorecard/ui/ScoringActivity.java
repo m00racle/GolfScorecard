@@ -38,7 +38,7 @@ public class ScoringActivity extends AppCompatActivity {
         List<Hole> holeList = Arrays.asList(holes);
 
         //set adapter
-        HoleAdapter adapter = new HoleAdapter(holeList);
+        final HoleAdapter adapter = new HoleAdapter(holeList);
         recyclerScore.setAdapter(adapter);
 
         //optimize recycler view
@@ -57,14 +57,11 @@ public class ScoringActivity extends AppCompatActivity {
                 for (Hole hole : holes){
                     hole.setScore(0);
                 }
-                restartActivity();
+
+                //switch from refresh the whole activity to just notify the adapter:
+                adapter.notifyDataSetChanged();
             }
         });
-    }
-
-    private void restartActivity() {
-        finish();
-        startActivity(getIntent());
     }
 
     // OVERRIDE ON PAUSE METHOD AND PUT ALL INT SCORE through editor (I initialize it here)
