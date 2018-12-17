@@ -72,48 +72,27 @@ public class ScoringActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("score1", holes[0].getScore());
-        editor.putInt("score2", holes[1].getScore());
-        editor.putInt("score3", holes[2].getScore());
-        editor.putInt("score4", holes[3].getScore());
-        editor.putInt("score5", holes[4].getScore());
-        editor.putInt("score6", holes[5].getScore());
-        editor.putInt("score7", holes[6].getScore());
-        editor.putInt("score8", holes[7].getScore());
-        editor.putInt("score9", holes[8].getScore());
-        editor.putInt("score10", holes[9].getScore());
-        editor.putInt("score11", holes[10].getScore());
-        editor.putInt("score12", holes[11].getScore());
-        editor.putInt("score13", holes[12].getScore());
-        editor.putInt("score14", holes[13].getScore());
-        editor.putInt("score15", holes[14].getScore());
-        editor.putInt("score16", holes[15].getScore());
-        editor.putInt("score17", holes[16].getScore());
-        editor.putInt("score18", holes[17].getScore());
+
+        // iterate all editor put int:
+        for (int i = 0; i < 18; i++){
+            String name = "score" + (i + 1);
+            editor.putInt(name, holes[i].getScore());
+        }
+
+        // apply editor changes:
         editor.apply();
     }
 
     private Hole[] initiateHoles() {
         Hole[] initHoles = new Hole[18];
+
         // FIX THIS INITIALIZATION TO MATCH WITH 18 HOLES TO ACCOMMODATES GET INT FROM SHARED PREFERENCES
-        initHoles[0] = new Hole(1, sharedPreferences.getInt("score1", 0));
-        initHoles[1] = new Hole(2, sharedPreferences.getInt("score2", 0));
-        initHoles[2] = new Hole(3, sharedPreferences.getInt("score3", 0));
-        initHoles[3] = new Hole(4, sharedPreferences.getInt("score4", 0));
-        initHoles[4] = new Hole(5, sharedPreferences.getInt("score5", 0));
-        initHoles[5] = new Hole(6, sharedPreferences.getInt("score6", 0));
-        initHoles[6] = new Hole(7, sharedPreferences.getInt("score7", 0));
-        initHoles[7] = new Hole(8, sharedPreferences.getInt("score8", 0));
-        initHoles[8] = new Hole(9, sharedPreferences.getInt("score9", 0));
-        initHoles[9] = new Hole(10, sharedPreferences.getInt("score10", 0));
-        initHoles[10] = new Hole(11, sharedPreferences.getInt("score11", 0));
-        initHoles[11] = new Hole(12, sharedPreferences.getInt("score12", 0));
-        initHoles[12] = new Hole(13, sharedPreferences.getInt("score13", 0));
-        initHoles[13] = new Hole(14, sharedPreferences.getInt("score14", 0));
-        initHoles[14] = new Hole(15, sharedPreferences.getInt("score15", 0));
-        initHoles[15] = new Hole(16, sharedPreferences.getInt("score16", 0));
-        initHoles[16] = new Hole(17, sharedPreferences.getInt("score17", 0));
-        initHoles[17] = new Hole(18, sharedPreferences.getInt("score18", 0));
+        for (int i = 0; i < 18; i++){
+            String name = "score" + (i + 1);
+            initHoles[i] = new Hole(i + 1, sharedPreferences.getInt(name, 0));
+        }
+
+        //return the List of Hole
         return initHoles;
     }
 
